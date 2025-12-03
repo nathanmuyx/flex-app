@@ -1,41 +1,92 @@
-// Fallback for using MaterialIcons on Android and web.
+import {
+  House,
+  MagnifyingGlass,
+  PlusSquare,
+  Bell,
+  User,
+  Heart,
+  ChatCircle,
+  PaperPlaneTilt,
+  X,
+  Camera,
+  Image as ImageIcon,
+  DotsThree,
+  BookmarkSimple,
+  PlusCircle,
+  ShareNetwork,
+  Smiley,
+  CaretRight,
+  Megaphone,
+  SealCheck,
+  InstagramLogo,
+  CaretLeft,
+  Play,
+  CheckCircle,
+  type IconProps,
+} from 'phosphor-react-native';
+import { type ComponentType } from 'react';
+import { type OpaqueColorValue, type StyleProp, type ViewStyle } from 'react-native';
 
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { SymbolWeight, SymbolViewProps } from 'expo-symbols';
-import { ComponentProps } from 'react';
-import { OpaqueColorValue, type StyleProp, type TextStyle } from 'react-native';
+// Map icon names to Phosphor components
+const ICON_MAP: Record<string, ComponentType<IconProps>> = {
+  // Tab bar icons
+  'house.fill': House,
+  'magnifyingglass': MagnifyingGlass,
+  'plus.app': PlusSquare,
+  'bell.fill': Bell,
+  'person.fill': User,
+  // Action icons
+  'heart': Heart,
+  'chat': ChatCircle,
+  'paperplane': PaperPlaneTilt,
+  'xmark': X,
+  'camera': Camera,
+  'photo': ImageIcon,
+  // Feed icons
+  'dots-three': DotsThree,
+  'bookmark': BookmarkSimple,
+  'plus-circle': PlusCircle,
+  'share': ShareNetwork,
+  'smiley': Smiley,
+  // Navigation icons
+  'chevron.right': CaretRight,
+  'chevron.left': CaretLeft,
+  'megaphone': Megaphone,
+  'seal-check': SealCheck,
+  'instagram-logo': InstagramLogo,
+  'play': Play,
+  // Selection icons
+  'check-circle': CheckCircle,
+};
 
-type IconMapping = Record<SymbolViewProps['name'], ComponentProps<typeof MaterialIcons>['name']>;
-type IconSymbolName = keyof typeof MAPPING;
+export type IconSymbolName = keyof typeof ICON_MAP;
 
-/**
- * Add your SF Symbols to Material Icons mappings here.
- * - see Material Icons in the [Icons Directory](https://icons.expo.fyi).
- * - see SF Symbols in the [SF Symbols](https://developer.apple.com/sf-symbols/) app.
- */
-const MAPPING = {
-  'house.fill': 'home',
-  'paperplane.fill': 'send',
-  'chevron.left.forwardslash.chevron.right': 'code',
-  'chevron.right': 'chevron-right',
-} as IconMapping;
-
-/**
- * An icon component that uses native SF Symbols on iOS, and Material Icons on Android and web.
- * This ensures a consistent look across platforms, and optimal resource usage.
- * Icon `name`s are based on SF Symbols and require manual mapping to Material Icons.
- */
 export function IconSymbol({
   name,
   size = 24,
   color,
   style,
+  weight = 'regular',
 }: {
   name: IconSymbolName;
   size?: number;
   color: string | OpaqueColorValue;
-  style?: StyleProp<TextStyle>;
-  weight?: SymbolWeight;
+  style?: StyleProp<ViewStyle>;
+  weight?: 'thin' | 'light' | 'regular' | 'bold' | 'fill' | 'duotone';
 }) {
-  return <MaterialIcons color={color} size={size} name={MAPPING[name]} style={style} />;
+  const IconComponent = ICON_MAP[name];
+
+  if (!IconComponent) {
+    console.warn(`Icon "${name}" not found in ICON_MAP`);
+    return null;
+  }
+
+  return (
+    <IconComponent
+      size={size}
+      color={color as string}
+      weight={weight}
+      style={style}
+    />
+  );
 }
