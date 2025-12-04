@@ -51,6 +51,7 @@ function RootLayoutNav() {
                 headerBackTitle: 'Back',
               }}
             />
+            <Stack.Screen name="activity" />
           </>
         ) : (
           <Stack.Screen name="login" />

@@ -22,6 +22,9 @@ import {
   CaretLeft,
   Play,
   CheckCircle,
+  SignOut,
+  Gear,
+  SquaresFour,
   type IconProps,
 } from 'phosphor-react-native';
 import { type ComponentType } from 'react';
@@ -57,6 +60,10 @@ const ICON_MAP: Record<string, ComponentType<IconProps>> = {
   'play': Play,
   // Selection icons
   'check-circle': CheckCircle,
+  // Profile icons
+  'sign-out': SignOut,
+  'gear': Gear,
+  'grid': SquaresFour,
 };
 
 export type IconSymbolName = keyof typeof ICON_MAP;
