@@ -110,13 +110,31 @@ export default function ProfileScreen() {
             />
           </View>
 
-          {/* Username & Name */}
-          <ThemedText type="defaultSemiBold" style={styles.username}>
-            @{username}
-          </ThemedText>
+          {/* Username with verified badge */}
+          <View style={styles.usernameRow}>
+            <ThemedText
+              type="defaultSemiBold"
+              style={[styles.username, user?.role === 'admin' && styles.adminUsername]}
+            >
+              @{username}
+            </ThemedText>
+            {user?.role === 'admin' && (
+              <IconSymbol
+                name="seal-check"
+                size={18}
+                color={BrandColors.green[500]}
+                weight="fill"
+              />
+            )}
+          </View>
           {user?.name && (
             <ThemedText style={[styles.displayName, { color: secondaryText }]}>
               {user.name}
+            </ThemedText>
+          )}
+          {user?.role && (
+            <ThemedText style={[styles.roleText, { color: secondaryText }]}>
+              {user.role === 'admin' ? 'Administrator' : 'Member'}
             </ThemedText>
           )}
 
@@ -194,9 +212,21 @@ const styles = StyleSheet.create({
     borderRadius: AVATAR_SIZE / 2,
     backgroundColor: BrandColors.gray[200],
   },
+  usernameRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    marginBottom: 4,
+  },
   username: {
     fontSize: 18,
-    marginBottom: 4,
+  },
+  adminUsername: {
+    color: BrandColors.green[500],
+  },
+  roleText: {
+    fontSize: 12,
+    marginBottom: 8,
   },
   displayName: {
     fontSize: 14,

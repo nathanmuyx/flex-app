@@ -64,7 +64,7 @@ export default function SelectPhotosModal() {
 
     if (activeTab === 'post') {
       router.push({
-        pathname: '/(modals)/create-post',
+        pathname: '/(modals)/post-options',
         params: { photos: JSON.stringify(selectedUris) },
       });
     } else {

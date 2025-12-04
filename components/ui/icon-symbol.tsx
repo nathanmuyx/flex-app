@@ -25,6 +25,13 @@ import {
   SignOut,
   Gear,
   SquaresFour,
+  Tag,
+  MapPin,
+  Briefcase,
+  Calendar,
+  Clock,
+  Truck,
+  Crosshair,
   type IconProps,
 } from 'phosphor-react-native';
 import { type ComponentType } from 'react';
@@ -64,6 +71,15 @@ const ICON_MAP: Record<string, ComponentType<IconProps>> = {
   'sign-out': SignOut,
   'gear': Gear,
   'grid': SquaresFour,
+  // Post options icons
+  'tag': Tag,
+  'map-pin': MapPin,
+  'briefcase': Briefcase,
+  // Job/scheduling icons
+  'calendar': Calendar,
+  'clock': Clock,
+  'truck': Truck,
+  'crosshair': Crosshair,
 };
 
 export type IconSymbolName = keyof typeof ICON_MAP;
